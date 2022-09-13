@@ -107,7 +107,7 @@ flake8-colors==0.1.6
 flake8==3.8.3
 flaky==3.7.0
 flask-swagger==0.2.14
-flower==0.9.5
+flower==1.2.0
 freezegun==0.3.15
 fsspec==0.8.0
 funcsigs==1.0.2
