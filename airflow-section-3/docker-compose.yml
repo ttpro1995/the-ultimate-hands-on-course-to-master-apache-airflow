@@ -6,7 +6,7 @@ services:
 ######################################################
   postgres:
     build: './docker/postgres'
-    restart: always
+    restart: no
     container_name: postgres
     logging:
       driver: "json-file"
@@ -30,7 +30,7 @@ services:
 
   adminer:
     image: wodby/adminer:latest
-    restart: always
+    restart: no
     container_name: adminer
     logging:
       driver: "json-file"
@@ -54,7 +54,7 @@ services:
 ######################################################
   namenode:
     build: ./docker/hadoop/hadoop-namenode
-    restart: always
+    restart: no
     container_name: namenode
     logging:
       driver: "json-file"
@@ -75,7 +75,7 @@ services:
 
   datanode:
     build: ./docker/hadoop/hadoop-datanode
-    restart: always
+    restart: no
     container_name: datanode
     logging:
       driver: "json-file"
@@ -96,7 +96,7 @@ services:
 
   hive-metastore:
     build: ./docker/hive/hive-metastore
-    restart: always
+    restart: no
     container_name: hive-metastore
     logging:
       driver: "json-file"
@@ -119,7 +119,7 @@ services:
 
   hive-server:
     build: ./docker/hive/hive-server
-    restart: always
+    restart: no
     container_name: hive-server
     logging:
       driver: "json-file"
@@ -141,7 +141,7 @@ services:
 
   hive-webhcat:
     build: ./docker/hive/hive-webhcat
-    restart: always
+    restart: no
     container_name: hive-webhcat
     logging:
       driver: "json-file"
@@ -160,7 +160,7 @@ services:
 
   hue:
     build: ./docker/hue
-    restart: always
+    restart: no
     container_name: hue
     logging:
       driver: "json-file"
@@ -187,7 +187,7 @@ services:
 ######################################################
   spark-master:
     build: ./docker/spark/spark-master
-    restart: always
+    restart: no
     container_name: spark-master
     logging:
       driver: "json-file"
@@ -228,7 +228,7 @@ services:
 
   livy:
     build: ./docker/livy
-    restart: always
+    restart: no
     container_name: livy
     logging:
       driver: "json-file"
@@ -255,7 +255,7 @@ services:
 
   airflow:
     build: ./docker/airflow
-    restart: always
+    restart: no
     container_name: airflow
     volumes:
       - ./mnt/airflow/airflow.cfg:/opt/airflow/airflow.cfg
