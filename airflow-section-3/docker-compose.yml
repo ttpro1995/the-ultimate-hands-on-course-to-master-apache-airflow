@@ -6,7 +6,7 @@ services:
 ######################################################
   postgres:
     build: './docker/postgres'
-    restart: no
+    restart: 'no'
     container_name: postgres
     logging:
       driver: "json-file"
@@ -30,7 +30,7 @@ services:
 
   adminer:
     image: wodby/adminer:latest
-    restart: no
+    restart: 'no'
     container_name: adminer
     logging:
       driver: "json-file"
@@ -54,7 +54,7 @@ services:
 ######################################################
   namenode:
     build: ./docker/hadoop/hadoop-namenode
-    restart: no
+    restart: 'no'
     container_name: namenode
     logging:
       driver: "json-file"
@@ -72,10 +72,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
   datanode:
     build: ./docker/hadoop/hadoop-datanode
-    restart: no
+    restart: 'no'
     container_name: datanode
     logging:
       driver: "json-file"
@@ -93,10 +98,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
   hive-metastore:
     build: ./docker/hive/hive-metastore
-    restart: no
+    restart: 'no'
     container_name: hive-metastore
     logging:
       driver: "json-file"
@@ -116,10 +126,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
   hive-server:
     build: ./docker/hive/hive-server
-    restart: no
+    restart: 'no'
     container_name: hive-server
     logging:
       driver: "json-file"
@@ -138,10 +153,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
   hive-webhcat:
     build: ./docker/hive/hive-webhcat
-    restart: no
+    restart: 'no'
     container_name: hive-webhcat
     logging:
       driver: "json-file"
@@ -157,10 +177,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
   hue:
     build: ./docker/hue
-    restart: no
+    restart: 'no'
     container_name: hue
     logging:
       driver: "json-file"
@@ -181,13 +206,18 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
 ######################################################
 # SPARK SERVICES
 ######################################################
   spark-master:
     build: ./docker/spark/spark-master
-    restart: no
+    restart: 'no'
     container_name: spark-master
     logging:
       driver: "json-file"
@@ -225,10 +255,15 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 1024M
 
   livy:
     build: ./docker/livy
-    restart: no
+    restart: 'no'
     container_name: livy
     logging:
       driver: "json-file"
@@ -255,7 +290,7 @@ services:
 
   airflow:
     build: ./docker/airflow
-    restart: no
+    restart: 'no'
     container_name: airflow
     volumes:
       - ./mnt/airflow/airflow.cfg:/opt/airflow/airflow.cfg
@@ -267,6 +302,11 @@ services:
       timeout: 45s
       interval: 10s
       retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
 
 ######################################################
 # NETWORK

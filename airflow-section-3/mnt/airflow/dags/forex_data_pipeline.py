@@ -53,7 +53,7 @@ with DAG("forex_data_pipeline", start_date=datetime(2021, 1 ,1),
         endpoint="marclamberti/f45f872dea4dfd3eaa015a4a1af4b39b",
         poke_interval=5,
         timeout=20
-    )
+    ) # host = gist.github.com
 
     is_forex_file_available = FileSensor(
         task_id="is_forex_file_available",
@@ -61,7 +61,7 @@ with DAG("forex_data_pipeline", start_date=datetime(2021, 1 ,1),
         filepath = "forex_currencies.csv",
         poke_interval=5,
         timeout=20
-    )
+    ) # {"path": "/opt/airflow/dags/files"}
 
     download_forex_rate = PythonOperator(
         python_callable=download_rates,
@@ -73,5 +73,25 @@ with DAG("forex_data_pipeline", start_date=datetime(2021, 1 ,1),
         bash_command="""
         hdfs dfs -mkdir -p /forex/rates
         hdfs dfs -put -f $AIRFLOW_HOME/dags/files/forex_rates.json /forex/rates
+        """
+    )
+
+    creating_forex_rates_table = HiveOperator(
+        task_id="creating_forex_rates_table",
+        hive_cli_conn_id="hive_conn",
+        hql="""
+            CREATE EXTERNAL TABLE IF NOT EXISTS forex_rates(
+                base STRING,
+                last_update DATE,
+                eur DOUBLE,
+                usd DOUBLE,
+                nzd DOUBLE,
+                gbp DOUBLE,
+                jpy DOUBLE,
+                cad DOUBLE
+                )
+            ROW FORMAT DELIMITED
+            FIELDS TERMINATED BY ','
+            STORED AS TEXTFILE
         """
     )
