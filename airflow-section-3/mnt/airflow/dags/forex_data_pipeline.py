@@ -95,3 +95,10 @@ with DAG("forex_data_pipeline", start_date=datetime(2021, 1 ,1),
             STORED AS TEXTFILE
         """
     )
+
+    process_forex_rate_spark_task = SparkSubmitOperator(
+        task_id="process_forex_rate_spark_task",
+        application="/opt/airflow/dags/scripts/forex_processing.py",
+        conn_id="spark_conn",
+        verbose=False
+    )
