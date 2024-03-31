@@ -16,11 +16,11 @@ jobs:
       - run:
           name: Test Python version
           command: |
-            docker run puckel/docker-airflow python -V | grep '3.7'
+            docker run puckel/docker-airflow python -V | grep '3.11'
       - run:
           name: Test docker image
           command: |
-            docker run puckel/docker-airflow version |grep '1.10.4'
+            docker run puckel/docker-airflow version |grep '2.8.4'
 workflows:
   version: 2
   build_and_test:

@@ -6,7 +6,7 @@ services:
 
   airflow:
     build: ./docker/airflow
-    restart: always
+    restart: 'no'
     container_name: airflow
     volumes:
       - ./mnt/airflow/project_a:/usr/local/airflow/project_a
